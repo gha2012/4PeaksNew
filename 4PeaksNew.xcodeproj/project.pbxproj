@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E650F8CB15D7FA4D00AF521C /* WatchBox.m in Sources */ = {isa = PBXBuildFile; fileRef = E650F8CA15D7FA4D00AF521C /* WatchBox.m */; };
+		E650F8CF15D7FA6700AF521C /* SequenceFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E650F8CE15D7FA6700AF521C /* SequenceFile.m */; };
 		E6CB784C15D6973600B179D7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB784B15D6973600B179D7 /* Cocoa.framework */; };
 		E6CB785615D6973600B179D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E6CB785415D6973600B179D7 /* InfoPlist.strings */; };
 		E6CB785815D6973600B179D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB785715D6973600B179D7 /* main.m */; };
@@ -18,6 +20,7 @@
 		E6CB786E15D6973700B179D7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB784B15D6973600B179D7 /* Cocoa.framework */; };
 		E6CB787615D6973700B179D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E6CB787415D6973700B179D7 /* InfoPlist.strings */; };
 		E6CB787915D6973700B179D7 /* _PeaksNewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB787815D6973700B179D7 /* _PeaksNewTests.m */; };
+		E6D6050315DBE54D00B78DA0 /* ghaAbifFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D6050215DBE54D00B78DA0 /* ghaAbifFile.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +34,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E650F8C915D7FA4D00AF521C /* WatchBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchBox.h; sourceTree = "<group>"; };
+		E650F8CA15D7FA4D00AF521C /* WatchBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchBox.m; sourceTree = "<group>"; };
+		E650F8CD15D7FA6700AF521C /* SequenceFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequenceFile.h; sourceTree = "<group>"; };
+		E650F8CE15D7FA6700AF521C /* SequenceFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SequenceFile.m; sourceTree = "<group>"; };
 		E6CB784715D6973600B179D7 /* 4PeaksNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 4PeaksNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6CB784B15D6973600B179D7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E6CB784E15D6973600B179D7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -51,6 +58,8 @@
 		E6CB787515D6973700B179D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E6CB787715D6973700B179D7 /* _PeaksNewTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _PeaksNewTests.h; sourceTree = "<group>"; };
 		E6CB787815D6973700B179D7 /* _PeaksNewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _PeaksNewTests.m; sourceTree = "<group>"; };
+		E6D6050115DBE54D00B78DA0 /* ghaAbifFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ghaAbifFile.h; sourceTree = "<group>"; };
+		E6D6050215DBE54D00B78DA0 /* ghaAbifFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ghaAbifFile.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +129,13 @@
 				E6CB785E15D6973600B179D7 /* ghaAppDelegate.m */,
 				E6CB786015D6973600B179D7 /* MainMenu.xib */,
 				E6CB786315D6973600B179D7 /* _PeaksNew.xcdatamodeld */,
+				E650F8CD15D7FA6700AF521C /* SequenceFile.h */,
+				E650F8CE15D7FA6700AF521C /* SequenceFile.m */,
+				E650F8C915D7FA4D00AF521C /* WatchBox.h */,
+				E650F8CA15D7FA4D00AF521C /* WatchBox.m */,
 				E6CB785215D6973600B179D7 /* Supporting Files */,
+				E6D6050115DBE54D00B78DA0 /* ghaAbifFile.h */,
+				E6D6050215DBE54D00B78DA0 /* ghaAbifFile.m */,
 			);
 			path = 4PeaksNew;
 			sourceTree = "<group>";
@@ -268,6 +283,9 @@
 				E6CB785815D6973600B179D7 /* main.m in Sources */,
 				E6CB785F15D6973600B179D7 /* ghaAppDelegate.m in Sources */,
 				E6CB786515D6973600B179D7 /* _PeaksNew.xcdatamodeld in Sources */,
+				E650F8CB15D7FA4D00AF521C /* WatchBox.m in Sources */,
+				E650F8CF15D7FA6700AF521C /* SequenceFile.m in Sources */,
+				E6D6050315DBE54D00B78DA0 /* ghaAbifFile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +465,7 @@
 				E6CB787E15D6973700B179D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E6CB787F15D6973700B179D7 /* Build configuration list for PBXNativeTarget "4PeaksNewTests" */ = {
 			isa = XCConfigurationList;
@@ -455,6 +474,7 @@
 				E6CB788115D6973700B179D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
