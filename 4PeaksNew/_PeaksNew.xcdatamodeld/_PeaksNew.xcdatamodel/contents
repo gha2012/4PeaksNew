@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1487" systemVersion="12A269" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="SequenceFile" representedClassName="SequenceFile" syncable="YES">
+        <attribute name="pbas1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rund1" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="sequenceFileName" optional="YES" attributeType="String" defaultValueString="new sequence file" syncable="YES"/>
         <attribute name="sequenceFilePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="smpl1" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="watchBox" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="WatchBox" inverseName="sequenceFiles" inverseEntity="WatchBox" syncable="YES"/>
     </entity>
     <entity name="WatchBox" representedClassName="WatchBox" syncable="YES">
         <attribute name="watchBoxDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="watchBoxName" optional="YES" attributeType="String" defaultValueString="new watchbox" syncable="YES"/>
+        <attribute name="watchBoxPath" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="sequenceFiles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SequenceFile" inverseName="watchBox" inverseEntity="SequenceFile" syncable="YES"/>
     </entity>
     <elements>

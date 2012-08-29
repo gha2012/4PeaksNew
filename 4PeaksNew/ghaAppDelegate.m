@@ -10,6 +10,7 @@
 #import "WatchBox.h"
 #import "SequenceFile.h"
 #import "ghaAbifFile.h"
+#import "BCSequenceView.h"
 
 @implementation ghaAppDelegate
 
@@ -22,19 +23,37 @@
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize selectedAbifFile = _selectedAbifFile;
 @synthesize sequenceView = _sequenceView;
+@synthesize mySplitView = _mySplitView;
+@synthesize sequenceFilesTableView = _sequenceFilesTableView;
+
+
+- (NSArray *)watchBoxSortDescriptors {
+    return [NSArray arrayWithObject:
+            [NSSortDescriptor sortDescriptorWithKey:@"watchBoxName"
+                                          ascending:YES]];
+}
+
+- (NSArray *)sequenceFileSortDescriptors {
+    return [NSArray arrayWithObject:
+            [NSSortDescriptor sortDescriptorWithKey:@"sequenceFileName"
+                                          ascending:YES]];
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
+    //initialization code here
 }
 
 - (void)awakeFromNib {
     //register for dropable files
     [_watchBoxesTableView registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
-    
+    [_sequenceFilesTableView registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
     // tell NSTableView we want to drag and drop accross applications
 	// the default has forLocal:YES
 	[_watchBoxesTableView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
+    [_sequenceFilesTableView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
+    [_sequenceView setUnit: @"bp"];
+	[_sequenceView setFilter: YES];
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "gregorhagelueken._PeaksNew" in the user's Application Support directory.
@@ -161,6 +180,8 @@
         NSUInteger counter = [[_watchBoxesArrayController content] count];
         WatchBox *newWatchBox = [NSEntityDescription insertNewObjectForEntityForName:@"WatchBox" inManagedObjectContext:[self managedObjectContext]];
         [newWatchBox setValue: [NSString stringWithFormat:@"New WatchBox %li", counter] forKey:@"watchBoxName"];
+        NSDate *date=[NSDate date];
+        [newWatchBox setValue: date forKey:@"watchBoxDate"];
         [_watchBoxesArrayController addObject:newWatchBox];
     }
     else {
@@ -185,6 +206,7 @@
         ghaAbifFile *abifFile=[[ghaAbifFile alloc ] initWithAbifFileAtURL:sequenceFileURL];
         _selectedAbifFile=abifFile;
         NSLog(@"%@",[_selectedAbifFile valueForKeyPath:@"seq"]);
+        NSLog(@"%@",[_selectedAbifFile valueForKeyPath:@"tags.PCON2"]);
         [_sequenceView setString:[_selectedAbifFile valueForKeyPath:@"seq"]];
         NSLog(@"read file");
     }
@@ -254,32 +276,52 @@
 - (NSArray *)tableView:(NSTableView *)aTableView
 namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination
 forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
-    //Find out which sequenceFiles are in the selected watchbox and write the paths to an array
-    NSArray *sequenceFilesInWatchBox = [NSArray arrayWithArray:[_sequenceFileArrayController arrangedObjects]];
     NSMutableArray *filesToBeDragged =[NSMutableArray array];
-    for (SequenceFile *sequencefile in sequenceFilesInWatchBox) {
-        [filesToBeDragged addObject:[sequencefile valueForKey:@"sequenceFilePath"]];
-    }//end for
-    NSLog(@"%@", filesToBeDragged);
-    NSLog(@"%@", [dropDestination path]);
-    
-    //create folder at drop destination and copy the files to this folder
-    NSFileManager *fileManager= [NSFileManager defaultManager];
-    NSString *watchBoxName=[NSString stringWithString:[[_watchBoxesArrayController selection] valueForKey:@"watchBoxName"]];
-    NSString *destinationFolderPath=[[dropDestination path] stringByAppendingPathComponent:watchBoxName];
-    BOOL isDir;
-    if(![fileManager fileExistsAtPath:destinationFolderPath isDirectory:&isDir]);
-        if(![fileManager createDirectoryAtPath:destinationFolderPath withIntermediateDirectories:YES attributes:nil error:NULL]){
-            NSLog(@"Error: Create folder failed %@", destinationFolderPath);
-            return FALSE;
-        }
-    
-    for (NSString *sourceFilePath in filesToBeDragged) {
-        NSURL *sourceURL = [NSURL fileURLWithPath:sourceFilePath];
-        NSURL *destinationURL = [[NSURL fileURLWithPath: destinationFolderPath] URLByAppendingPathComponent:[sourceFilePath lastPathComponent]];
-        [[NSFileManager defaultManager] copyItemAtURL:sourceURL toURL:destinationURL error:nil];
-    }//end for
-    NSLog(@"drop");
+    if ([aTableView isEqualTo:_watchBoxesTableView]) {
+        //Find out which sequenceFiles are in the selected watchbox and write the paths to an array
+        NSArray *sequenceFilesInWatchBox = [NSArray arrayWithArray:[_sequenceFileArrayController arrangedObjects]];
+        for (SequenceFile *sequencefile in sequenceFilesInWatchBox) {
+            [filesToBeDragged addObject:[sequencefile valueForKey:@"sequenceFilePath"]];
+        }//end for
+        NSLog(@"%@", filesToBeDragged);
+        NSLog(@"%@", [dropDestination path]);
+        
+        //create folder at drop destination and copy the files to this folder
+        NSFileManager *fileManager= [NSFileManager defaultManager];
+        NSString *watchBoxName=[NSString stringWithString:[[_watchBoxesArrayController selection] valueForKey:@"watchBoxName"]];
+        NSString *destinationFolderPath=[[dropDestination path] stringByAppendingPathComponent:watchBoxName];
+        BOOL isDir;
+        if(![fileManager fileExistsAtPath:destinationFolderPath isDirectory:&isDir]);
+            if(![fileManager createDirectoryAtPath:destinationFolderPath withIntermediateDirectories:YES attributes:nil error:NULL]){
+                NSLog(@"Error: Create folder failed %@", destinationFolderPath);
+                return FALSE;
+            }//end if
+        
+        
+        for (NSString *sourceFilePath in filesToBeDragged) {
+            NSURL *sourceURL = [NSURL fileURLWithPath:sourceFilePath];
+            NSURL *destinationURL = [[NSURL fileURLWithPath: destinationFolderPath] URLByAppendingPathComponent:[sourceFilePath lastPathComponent]];
+            [[NSFileManager defaultManager] copyItemAtURL:sourceURL toURL:destinationURL error:nil];
+        }//end for
+        NSLog(@"drop");
+    }//end if
+    if ([aTableView isEqualTo:_sequenceFilesTableView]) {
+        //get selected sequence files
+        NSArray *selectedFiles=[[NSArray alloc]initWithArray:[[_sequenceFileArrayController arrangedObjects] objectsAtIndexes:indexSet]];
+        for (SequenceFile *sequencefile in selectedFiles) {
+            [filesToBeDragged addObject:[sequencefile valueForKey:@"sequenceFilePath"]];
+        }//end for
+        NSLog(@"%@", filesToBeDragged);
+        NSLog(@"%@", [dropDestination path]);
+        NSFileManager *fileManager= [NSFileManager defaultManager];
+        for (NSString *sourceFilePath in filesToBeDragged) {
+            NSURL *sourceURL = [NSURL fileURLWithPath:sourceFilePath];
+            NSURL *destinationURL = [[NSURL fileURLWithPath: [dropDestination path]] URLByAppendingPathComponent:[sourceFilePath lastPathComponent]];
+            if(![fileManager fileExistsAtPath:[destinationURL path]])
+                [[NSFileManager defaultManager] copyItemAtURL:sourceURL toURL:destinationURL error:nil];
+        
+        }//end for
+    }//end if
     return filesToBeDragged;
 }//end tableView:namesOfPromisedFilesDroppedAtDestination:forDraggedRowsWithIndexes
 
@@ -310,42 +352,236 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 		NSLog(@"NSFilenamesPboardType");
         NSArray* pListFilesArray = [zPBoard propertyListForType:NSFilenamesPboardType];
 		NSInteger i;
-		
-        //create new Watchbox for all dropped files
-        WatchBox *newWatchBox = [NSEntityDescription insertNewObjectForEntityForName:@"WatchBox" inManagedObjectContext:[self managedObjectContext]];
-        NSUInteger counter = [[_watchBoxesArrayController content] count];
-        [newWatchBox setValue: [NSString stringWithFormat:@"New WatchBox %li", counter] forKey:@"watchBoxName"];
-        
-        //create a folder for the watchbox
-        NSString *uniqueID = [[NSProcessInfo processInfo] globallyUniqueString];
-        NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
-        NSURL *uniqueWatchBoxDirectory = [applicationFilesDirectory URLByAppendingPathComponent:uniqueID isDirectory:YES];
-        NSLog(@"%@", uniqueWatchBoxDirectory);
-        [[ NSFileManager defaultManager] createDirectoryAtURL:uniqueWatchBoxDirectory withIntermediateDirectories:YES attributes:nil error:nil];
-        
-        //create new SequenceFile for each dropped file and set relationship
-        for (i = 0; i < [pListFilesArray count]; i++) {
-			//get the filepath of each file that is to be dropped
-            NSString * originalFilePath	= [pListFilesArray objectAtIndex:i];
-            NSURL *originalFileURL = [NSURL fileURLWithPath:originalFilePath];
-            NSString* originalFileName = [originalFilePath lastPathComponent];
-            NSURL *targetFileURL = [uniqueWatchBoxDirectory URLByAppendingPathComponent:originalFileName];
-        
-    
-            SequenceFile *newSequenceFile = [NSEntityDescription insertNewObjectForEntityForName:@"SequenceFile" inManagedObjectContext:[self managedObjectContext]];
-            [newSequenceFile setValue: originalFileName forKey:@"sequenceFileName"];
-            [newSequenceFile setValue:[targetFileURL path] forKey:@"sequenceFilePath"];
-            [newSequenceFile setWatchBox:newWatchBox];
-            //copy the file to the new directory
-            [[NSFileManager defaultManager] copyItemAtURL:originalFileURL toURL:targetFileURL error:nil];
+		if ([aTableView isEqualTo:_watchBoxesTableView]) {
+            //create new Watchbox for all dropped files
+            NSDate *date=[NSDate date];
+            WatchBox *newWatchBox = [NSEntityDescription insertNewObjectForEntityForName:@"WatchBox" inManagedObjectContext:[self managedObjectContext]];
+            NSUInteger counter = [[_watchBoxesArrayController content] count];
+            [newWatchBox setValue: [NSString stringWithFormat:@"New WatchBox %li", counter] forKey:@"watchBoxName"];
+            [newWatchBox setValue: date forKey:@"watchBoxDate"];
             
-        } // end for
-        return YES;
+            //create a folder for the watchbox
+            NSString *uniqueID = [[NSProcessInfo processInfo] globallyUniqueString];
+            NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
+            NSURL *uniqueWatchBoxDirectory = [applicationFilesDirectory URLByAppendingPathComponent:uniqueID isDirectory:YES];
+            [newWatchBox setValue:[uniqueWatchBoxDirectory path] forKey:@"watchBoxPath"];
+            NSLog(@"%@", uniqueWatchBoxDirectory);
+            [[ NSFileManager defaultManager] createDirectoryAtURL:uniqueWatchBoxDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+            //create new SequenceFile for each dropped file and set relationship
+            for (i = 0; i < [pListFilesArray count]; i++) {
+                //get the filepath of each file that is to be dropped
+                NSString * originalFilePath	= [pListFilesArray objectAtIndex:i];
+                NSURL *originalFileURL = [NSURL fileURLWithPath:originalFilePath];
+                NSString* originalFileName = [originalFilePath lastPathComponent];
+                NSURL *targetFileURL = [uniqueWatchBoxDirectory URLByAppendingPathComponent:originalFileName];
+                SequenceFile *newSequenceFile = [NSEntityDescription insertNewObjectForEntityForName:@"SequenceFile" inManagedObjectContext:[self managedObjectContext]];
+                [newSequenceFile setValue: originalFileName forKey:@"sequenceFileName"];
+                [newSequenceFile setValue:[targetFileURL path] forKey:@"sequenceFilePath"];
+                [newSequenceFile setWatchBox:newWatchBox];
+                //parse some metadata
+                NSLog(@"%@",[[originalFilePath lastPathComponent] pathExtension]);
+                if ([[[originalFilePath lastPathComponent] pathExtension] isEqualTo:@"ab1"]) {
+                    ghaAbifFile *abifFile=[[ghaAbifFile alloc ] initWithAbifFileAtURL:originalFileURL];
+                    [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.PBAS1"] forKey:@"pbas1"]; //sequence
+                    [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.SMPL1"] forKey:@"smpl1"]; //sample name in abi file
+                    [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.RUND1"] forKey:@"rund1"]; //sample name in abi file
+                }//end if
+                //copy the file to the new directory
+                [[NSFileManager defaultManager] copyItemAtURL:originalFileURL toURL:targetFileURL error:nil];
+            } // end for
+            return YES;
+        }//end if isEqualToWatchBoxTableView
+        if ([aTableView isEqualTo:_sequenceFilesTableView]) {
+            NSLog(@"sequenceFileTableView");
+            //get parent watchbox
+            NSLog(@"%@",[[_watchBoxesArrayController arrangedObjects]objectAtIndex:[_watchBoxesArrayController selectionIndex]]);
+            WatchBox *parentWatchbox=[[_watchBoxesArrayController arrangedObjects]objectAtIndex:[_watchBoxesArrayController selectionIndex]];
+            NSLog(@"%@",parentWatchbox);
+            NSURL *watchboxFileURL = [NSURL fileURLWithPath:[parentWatchbox valueForKey:@"watchBoxPath"]];
+            //create new SequenceFile for each dropped file and set relationship
+            for (i = 0; i < [pListFilesArray count]; i++) {
+                //get the filepath of each file that is to be dropped
+                NSString * originalFilePath	= [pListFilesArray objectAtIndex:i];
+                NSURL *originalFileURL = [NSURL fileURLWithPath:originalFilePath];
+                NSString* originalFileName = [originalFilePath lastPathComponent];
+                NSURL *targetFileURL = [watchboxFileURL URLByAppendingPathComponent:originalFileName];
+                SequenceFile *newSequenceFile = [NSEntityDescription insertNewObjectForEntityForName:@"SequenceFile" inManagedObjectContext:[self managedObjectContext]];
+                [newSequenceFile setValue: originalFileName forKey:@"sequenceFileName"];
+                [newSequenceFile setValue:[targetFileURL path] forKey:@"sequenceFilePath"];
+                NSLog(@"%@",newSequenceFile);
+                
+                [newSequenceFile setWatchBox:parentWatchbox];
+                //parse some metadata
+                NSLog(@"%@",[[originalFilePath lastPathComponent] pathExtension]);
+                if ([[[originalFilePath lastPathComponent] pathExtension] isEqualTo:@"ab1"]) {
+                    ghaAbifFile *abifFile=[[ghaAbifFile alloc ] initWithAbifFileAtURL:originalFileURL];
+                    [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.PBAS1"] forKey:@"pbas1"]; //sequence
+                    [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.SMPL1"] forKey:@"smpl1"]; //sample name in abi file
+                    [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.RUND1"] forKey:@"rund1"]; //sample name in abi file
+                }//end if ...
+                //copy the file to the new directory
+                [[NSFileManager defaultManager] copyItemAtURL:originalFileURL toURL:targetFileURL error:nil];
+            }//end for...
+            return YES;
+        }//end if ...
     }//end if ... NSFilenamesPboardType
     return NO;
 } //end tableView:acceptDrop:row:dropOperation:
 
-- (void)tableViewSelectionDidChange:(NSNotification *)aNotification{
-    [self readAbi:nil];
+//- (void)tableViewSelectionDidChange:(NSNotification *)aNotification{
+//    [self readAbi:nil];
+//}
+
+#pragma mark - splitview delegate
+- (BOOL)splitView:(NSSplitView *)splitView canCollapseSubview:(NSView *)subview;
+{
+    //NSView* leftView = [[splitView subviews] objectAtIndex:0];
+    //NSLog(@"%@:%s returning %@",[self class], _cmd, ([subview isEqual:leftView])?@"YES":@"NO");
+    return YES;//([subview isEqual:leftView]);
 }
+
+- (BOOL)splitView:(NSSplitView *)splitView shouldCollapseSubview:(NSView *)subview forDoubleClickOnDividerAtIndex:(NSInteger)dividerIndex
+{
+    //NSView* leftView = [[splitView subviews] objectAtIndex:0];
+    //NSLog(@"%@:%s returning %@",[self class], _cmd, ([subview isEqual:leftView])?@"YES":@"NO");
+    return YES;//([subview isEqual:leftView]);
+}
+-(IBAction)toggleWatchBoxes:(id)sender {
+    BOOL leftViewCollapsed = [[self mySplitView] isSubviewCollapsed:[[[self mySplitView] subviews] objectAtIndex: 0]];
+    //NSLog(@"%@:%s toggleInspector isCollapsed: %@",[self class], _cmd, leftViewCollapsed?@"YES":@"NO");
+    if (leftViewCollapsed) {
+        [self uncollapseLeftView];
+    } else {
+        [self collapseLeftView];
+    }
+}
+
+- (IBAction)toggleUILayout:(id)sender {
+    NSSegmentedControl *segmentedControl = (NSSegmentedControl *) sender;
+    NSInteger selectedSegment = segmentedControl.selectedSegment;
+    BOOL leftViewCollapsed = [[self mySplitView] isSubviewCollapsed:[[[self mySplitView] subviews] objectAtIndex: 0]];
+    BOOL middleViewCollapsed = [[self mySplitView] isSubviewCollapsed:[[[self mySplitView] subviews] objectAtIndex: 1]];
+    if (selectedSegment == 0) {
+        if (leftViewCollapsed && middleViewCollapsed) {
+            [self uncollapseLeftAndMiddleView];
+        }
+        else if (leftViewCollapsed) {
+            [self uncollapseLeftView];
+        }
+    }//end if
+    if (selectedSegment == 1) {
+        if (!leftViewCollapsed) {
+            [self collapseLeftView];
+        }
+        if (middleViewCollapsed){
+            [self uncollapseLeftAndMiddleView];
+            [self collapseLeftView];
+        }
+        
+    }//end if
+    if (selectedSegment == 2) {
+        if (!leftViewCollapsed && !middleViewCollapsed) {
+            [self collapseLeftAndMiddleView];
+        }
+        else if (!leftViewCollapsed || !middleViewCollapsed) {
+            [self collapseLeftAndMiddleView];
+        }
+    }//end if
+    
+}//end toggleUILayout
+-(void)collapseLeftView
+{
+    CGFloat dividerThickness = [[self mySplitView] dividerThickness];
+    NSView *left = [[[self mySplitView] subviews] objectAtIndex:0];
+    NSView *middle  = [[[self mySplitView] subviews] objectAtIndex:1];
+    NSView *right = [[[self mySplitView] subviews] objectAtIndex:2];
+    
+    NSRect leftFrame = [left frame];
+    NSRect middleFrame = [middle frame];
+    NSRect rightFrame = [right frame];
+    NSRect overallFrame = [[self mySplitView] frame];
+    
+    [left setHidden:YES];
+    CGFloat originDifference=middleFrame.origin.x-leftFrame.origin.x;
+    CGFloat newMiddleOrigin=middleFrame.origin.x-originDifference+dividerThickness;
+    CGFloat newRightOrigin=rightFrame.origin.x-originDifference+dividerThickness;
+    int leftWidth = leftFrame.size.width;
+    [right setFrameSize:NSMakeSize(rightFrame.size.width+leftWidth,overallFrame.size.height)];
+    [right setFrameOrigin:NSMakePoint(newRightOrigin, rightFrame.origin.y)];
+    [middle setFrameOrigin:NSMakePoint(newMiddleOrigin, middleFrame.origin.y)];
+    [[self mySplitView] display];
+}
+-(void)uncollapseLeftView
+{
+    CGFloat dividerThickness = [[self mySplitView] dividerThickness];
+    NSView *left = [[[self mySplitView] subviews] objectAtIndex:0];
+    NSView *middle  = [[[self mySplitView] subviews] objectAtIndex:1];
+    NSView *right = [[[self mySplitView] subviews] objectAtIndex:2];
+    
+    // get the different frames
+    NSRect leftFrame = [left frame];
+    NSRect middleFrame = [middle frame];
+    NSRect rightFrame = [right frame];
+    NSRect overallFrame = [[self mySplitView] frame];
+    [left setHidden:NO];
+    
+    // Adjust left frame size
+    middleFrame.origin.x+=leftFrame.size.width + dividerThickness;
+    rightFrame.size.width-=leftFrame.size.width;
+    rightFrame.origin.x+=leftFrame.size.width + dividerThickness;
+    
+    [middle setFrameSize:middleFrame.size];
+    [middle setFrameOrigin:middleFrame.origin];
+    [right setFrameSize:rightFrame.size];
+    [right setFrameOrigin:rightFrame.origin];
+    [[self mySplitView] display];
+}
+
+-(void)collapseLeftAndMiddleView
+{
+    CGFloat dividerThickness = [[self mySplitView] dividerThickness];
+    NSView *left = [[[self mySplitView] subviews] objectAtIndex:0];
+    NSView *middle  = [[[self mySplitView] subviews] objectAtIndex:1];
+    NSView *right = [[[self mySplitView] subviews] objectAtIndex:2];
+    
+    NSRect leftFrame = [left frame];
+    NSRect middleFrame = [middle frame];
+    NSRect rightFrame = [right frame];
+    NSRect overallFrame = [[self mySplitView] frame];
+    
+    [left setHidden:YES];
+    [middle setHidden:YES];
+    CGFloat originDifference=rightFrame.origin.x-leftFrame.origin.x-middleFrame.origin.x;
+    CGFloat newRightOrigin=rightFrame.origin.x-originDifference+2*dividerThickness;
+    int leftWidth = leftFrame.size.width;
+    int middleWidth = middleFrame.size.width;
+    [right setFrameSize:NSMakeSize(rightFrame.size.width+leftWidth+middleWidth,overallFrame.size.height)];
+    [right setFrameOrigin:NSMakePoint(newRightOrigin, rightFrame.origin.y)];
+    [[self mySplitView] display];
+}
+-(void)uncollapseLeftAndMiddleView
+{
+    CGFloat dividerThickness = [[self mySplitView] dividerThickness];
+    NSView *left = [[[self mySplitView] subviews] objectAtIndex:0];
+    NSView *middle  = [[[self mySplitView] subviews] objectAtIndex:1];
+    NSView *right = [[[self mySplitView] subviews] objectAtIndex:2];
+    
+    // get the different frames
+    NSRect leftFrame = [left frame];
+    NSRect middleFrame = [middle frame];
+    NSRect rightFrame = [right frame];
+    NSRect overallFrame = [[self mySplitView] frame];
+    [left setHidden:NO];
+    [middle setHidden:NO];
+    // Adjust left frame size
+    rightFrame.origin.x+=leftFrame.size.width + middleFrame.size.width + 2*dividerThickness;
+    rightFrame.size.width-=leftFrame.size.width-middleFrame.size.width;
+    
+    [middle setFrameSize:middleFrame.size];
+    [middle setFrameOrigin:middleFrame.origin];
+    [right setFrameSize:rightFrame.size];
+    [right setFrameOrigin:rightFrame.origin];
+    [[self mySplitView] display];
+}
+
 @end

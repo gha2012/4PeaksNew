@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 @class ghaAbifFile;
-
+@class BCSequenceView;
 @interface ghaAppDelegate : NSObject <NSApplicationDelegate>
 
 
@@ -19,7 +19,9 @@
 @property (weak) IBOutlet NSArrayController *sequenceFileArrayController;
 @property (weak) IBOutlet NSDictionaryController *tagsDictionaryController;
 @property ghaAbifFile *selectedAbifFile;
-@property IBOutlet NSTextView *sequenceView;
+@property IBOutlet BCSequenceView *sequenceView;
+@property (weak) IBOutlet NSSplitView *mySplitView;
+@property (weak) IBOutlet NSTableView *sequenceFilesTableView;
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
@@ -28,5 +30,11 @@
 - (IBAction)saveAction:(id)sender;
 - (IBAction)addRemoveWatchBox:(id)sender;
 - (IBAction)readAbi:(id)sender;
+- (IBAction)toggleWatchBoxes:(id)sender;
+- (IBAction)toggleUILayout:(id)sender;
 
+-(void)collapseLeftView;
+-(void)uncollapseLeftView;
+- (NSArray *)watchBoxSortDescriptors;
+- (NSArray *)sequenceFileSortDescriptors;
 @end

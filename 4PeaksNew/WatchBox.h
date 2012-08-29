@@ -15,6 +15,8 @@
 @property (nonatomic, retain) NSDate * watchBoxDate;
 @property (nonatomic, retain) NSString * watchBoxName;
 @property (nonatomic, retain) NSSet *sequenceFiles;
+@property (readonly) NSString *numberOfSequencesInWatchBox;
+@property (readonly) NSString *formattedWatchBoxDate;
 @end
 
 @interface WatchBox (CoreDataGeneratedAccessors)

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E61CB74815EB9F9E001FFA99 /* BCSequenceView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61CB74715EB9F9E001FFA99 /* BCSequenceView.m */; };
+		E61CB74915EB9F9E001FFA99 /* BCSequenceView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61CB74715EB9F9E001FFA99 /* BCSequenceView.m */; };
 		E650F8CB15D7FA4D00AF521C /* WatchBox.m in Sources */ = {isa = PBXBuildFile; fileRef = E650F8CA15D7FA4D00AF521C /* WatchBox.m */; };
 		E650F8CF15D7FA6700AF521C /* SequenceFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E650F8CE15D7FA6700AF521C /* SequenceFile.m */; };
 		E6CB784C15D6973600B179D7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB784B15D6973600B179D7 /* Cocoa.framework */; };
@@ -34,6 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E61CB74615EB9F9E001FFA99 /* BCSequenceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCSequenceView.h; sourceTree = "<group>"; };
+		E61CB74715EB9F9E001FFA99 /* BCSequenceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCSequenceView.m; sourceTree = "<group>"; };
+		E61CB74B15EB9FAC001FFA99 /* BCAppKitDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCAppKitDefines.h; sourceTree = "<group>"; };
 		E650F8C915D7FA4D00AF521C /* WatchBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchBox.h; sourceTree = "<group>"; };
 		E650F8CA15D7FA4D00AF521C /* WatchBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchBox.m; sourceTree = "<group>"; };
 		E650F8CD15D7FA6700AF521C /* SequenceFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequenceFile.h; sourceTree = "<group>"; };
@@ -83,6 +88,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E61CB6D315E783A5001FFA99 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				E6CB786315D6973600B179D7 /* _PeaksNew.xcdatamodeld */,
+				E650F8CD15D7FA6700AF521C /* SequenceFile.h */,
+				E650F8CE15D7FA6700AF521C /* SequenceFile.m */,
+				E650F8C915D7FA4D00AF521C /* WatchBox.h */,
+				E650F8CA15D7FA4D00AF521C /* WatchBox.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
 		E6CB783C15D6973600B179D7 = {
 			isa = PBXGroup;
 			children = (
@@ -125,14 +142,13 @@
 		E6CB785115D6973600B179D7 /* 4PeaksNew */ = {
 			isa = PBXGroup;
 			children = (
+				E61CB74B15EB9FAC001FFA99 /* BCAppKitDefines.h */,
+				E61CB74615EB9F9E001FFA99 /* BCSequenceView.h */,
+				E61CB74715EB9F9E001FFA99 /* BCSequenceView.m */,
 				E6CB785D15D6973600B179D7 /* ghaAppDelegate.h */,
 				E6CB785E15D6973600B179D7 /* ghaAppDelegate.m */,
 				E6CB786015D6973600B179D7 /* MainMenu.xib */,
-				E6CB786315D6973600B179D7 /* _PeaksNew.xcdatamodeld */,
-				E650F8CD15D7FA6700AF521C /* SequenceFile.h */,
-				E650F8CE15D7FA6700AF521C /* SequenceFile.m */,
-				E650F8C915D7FA4D00AF521C /* WatchBox.h */,
-				E650F8CA15D7FA4D00AF521C /* WatchBox.m */,
+				E61CB6D315E783A5001FFA99 /* model */,
 				E6CB785215D6973600B179D7 /* Supporting Files */,
 				E6D6050115DBE54D00B78DA0 /* ghaAbifFile.h */,
 				E6D6050215DBE54D00B78DA0 /* ghaAbifFile.m */,
@@ -286,6 +302,7 @@
 				E650F8CB15D7FA4D00AF521C /* WatchBox.m in Sources */,
 				E650F8CF15D7FA6700AF521C /* SequenceFile.m in Sources */,
 				E6D6050315DBE54D00B78DA0 /* ghaAbifFile.m in Sources */,
+				E61CB74815EB9F9E001FFA99 /* BCSequenceView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6CB787915D6973700B179D7 /* _PeaksNewTests.m in Sources */,
+				E61CB74915EB9F9E001FFA99 /* BCSequenceView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
