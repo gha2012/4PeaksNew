@@ -63,14 +63,13 @@
 {
 	if (self = [super initWithCoder:aDecoder])
 	{
-		[self initLineMargin: [self frame]];
+        [self initLineMargin: [self frame]];
 		[self setUnit: @""];
 		[self setMarkingRange: NSMakeRange(NSNotFound,0)];
 		[self setFilter: NO];	// off by default
 		[self setSymbolCase: BCUppercase];
 		[self setSymbolsPerColumn: 10];	// default
 	}
-	
     return self;
 }
 
@@ -85,13 +84,13 @@
 		[self setSymbolCase: BCUppercase];
 		[self setSymbolsPerColumn: 10];	// default
     }
-	
     return self;
 }
 
 - (void) initLineMargin:(NSRect) frame
 {
-	NSSize						contentSize;
+	
+    NSSize						contentSize;
 	BCSequenceViewContainer		*myContainer;
 	BCSequenceViewLayoutManager	*myLayoutManager;
 	
@@ -109,12 +108,12 @@
 	// This controls the inset of our text away from the margin.
 	[myContainer setLineFragmentPadding: 7];
 	[self replaceTextContainer: myContainer];
-	
+	NSLog(@"%@",[self exposedBindings]);
 	
 	// create a subclass of NSLayoutManager to correct for selection bug
 	myLayoutManager = [[BCSequenceViewLayoutManager alloc] init];
 	[myContainer replaceLayoutManager: myLayoutManager];
-
+    NSLog(@"%@",[self exposedBindings]);
 	// set all the parameters for the text view - it's was created from scratch, so it doesn't use
 	// the values from the Nib file.
 	
@@ -150,11 +149,8 @@
 	drawNumbersInMargin = YES;
 	drawLineNumbers = NO;
 	drawOverlay = YES;
-}
-
-- (void) dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //NSLog(@"%@",[self exposedBindings]);
+    
 }
 
 - (BOOL)filter
@@ -800,7 +796,7 @@
 {
 	if (aString == nil)
 		return;
-		
+    //NSLog(@"%@",[self exposedBindings]);
 	NSString *filteredString;
 
 	if([self filter])
@@ -832,6 +828,8 @@
 			[super setString: filteredString];
 			break;
 	}
+    NSLog(@"%@",[self exposedBindings]);
+    NSLog(@"%@", self);
 }
 
 - (BOOL)readSelectionFromPasteboard:(NSPasteboard *)pboard type:(NSString *)type{
@@ -953,6 +951,13 @@
 
 @implementation BCSequenceViewContainer
 
+- (id) initWithContainerSize:(NSSize)size {
+    if (self = [super initWithContainerSize:size]) {
+        //do something
+    }
+    return self;        
+}
+
 - (BOOL) isSimpleRectangularTextContainer {
     return NO;
 }
@@ -995,6 +1000,12 @@
 
 @implementation BCSequenceViewLayoutManager
 
+-(id)init {
+    if (self=[super init]) {
+        //init
+    }
+    return self;
+}
 - (void)setSymbolsPerColumn:(int)newNumber
 {
 	symbolsPerColumn = newNumber;

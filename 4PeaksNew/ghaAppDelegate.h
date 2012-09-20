@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 @class ghaAbifFile;
 @class BCSequenceView;
+@class GHTextView;
 @interface ghaAppDelegate : NSObject <NSApplicationDelegate>
 
 
@@ -19,9 +20,12 @@
 @property (weak) IBOutlet NSArrayController *sequenceFileArrayController;
 @property (weak) IBOutlet NSDictionaryController *tagsDictionaryController;
 @property ghaAbifFile *selectedAbifFile;
-@property IBOutlet BCSequenceView *sequenceView;
+@property (unsafe_unretained) IBOutlet NSTextView *sequenceView;
+@property (unsafe_unretained) IBOutlet NSTextView *notesView;
+
 @property (weak) IBOutlet NSSplitView *mySplitView;
 @property (weak) IBOutlet NSTableView *sequenceFilesTableView;
+
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
@@ -32,6 +36,7 @@
 - (IBAction)readAbi:(id)sender;
 - (IBAction)toggleWatchBoxes:(id)sender;
 - (IBAction)toggleUILayout:(id)sender;
+- (IBAction)toggleReverseComplement:(id)sender;
 
 -(void)collapseLeftView;
 -(void)uncollapseLeftView;

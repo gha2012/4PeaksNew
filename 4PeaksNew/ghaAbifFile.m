@@ -128,7 +128,13 @@
                 [anAbifFile getBytes:&buffer range:NSMakeRange(offset, numElements)];
                 NSString *bufferString=[[NSString alloc]initWithBytes:&buffer length:numElements encoding:NSASCIIStringEncoding];
                 dictionary=[NSDictionary dictionaryWithObjectsAndKeys:bufferString, nameAndNumber,nil];
-                //NSLog(@"%@",test);
+                NSLog(@"%@",dictionary);
+                NSLog(@"%li",[bufferString length]);
+                //int result=0;
+                //for (int i=0; i<[bufferString length]-1; i++) {
+                //    result=[bufferString characterAtIndex:i];
+                    //NSLog(@"%i",result);
+                //}
             }// end if
         }
             break; //end case 2
@@ -156,11 +162,12 @@
                 [anAbifFile getBytes:&buffer range:NSMakeRange(offset, numElements*elementSize)];
                 int i=0;
                 while (i <= numElements-1) {
-                    [array addObject:[NSNumber numberWithInt:CFSwapInt16(buffer[i])]];
+                    [array addObject:[NSNumber numberWithInt: EndianS16_BtoN(buffer[i])]];
                     i++;
                 }
                 dictionary=[NSDictionary dictionaryWithObjectsAndKeys:array, nameAndNumber,nil];
-                //NSLog(@"%@",array);
+                //if ([nameAndNumber isEqualTo:@"DATA10"])
+                    //NSLog(@"%@",array);
             }// end if
         }
             break; //end case 4

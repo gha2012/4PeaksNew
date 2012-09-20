@@ -23,6 +23,7 @@
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize selectedAbifFile = _selectedAbifFile;
 @synthesize sequenceView = _sequenceView;
+@synthesize notesView = _notesView;
 @synthesize mySplitView = _mySplitView;
 @synthesize sequenceFilesTableView = _sequenceFilesTableView;
 
@@ -41,7 +42,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    //initialization code here
+    //code here
 }
 
 - (void)awakeFromNib {
@@ -52,8 +53,10 @@
 	// the default has forLocal:YES
 	[_watchBoxesTableView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     [_sequenceFilesTableView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
-    [_sequenceView setUnit: @"bp"];
-	[_sequenceView setFilter: YES];
+    //[_sequenceView setUnit: @"bp"];
+	//[_sequenceView setFilter: YES];
+    //NSLog(@"%@",[_sequenceFileArrayController exposedBindings]);
+    
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "gregorhagelueken._PeaksNew" in the user's Application Support directory.
@@ -207,7 +210,7 @@
         _selectedAbifFile=abifFile;
         NSLog(@"%@",[_selectedAbifFile valueForKeyPath:@"seq"]);
         NSLog(@"%@",[_selectedAbifFile valueForKeyPath:@"tags.PCON2"]);
-        [_sequenceView setString:[_selectedAbifFile valueForKeyPath:@"seq"]];
+        //[_sequenceView setString:[_selectedAbifFile valueForKeyPath:@"seq"]];
         NSLog(@"read file");
     }
     else
@@ -385,6 +388,8 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
                     [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.PBAS1"] forKey:@"pbas1"]; //sequence
                     [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.SMPL1"] forKey:@"smpl1"]; //sample name in abi file
                     [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.RUND1"] forKey:@"rund1"]; //sample name in abi file
+                    [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.PCON2"] forKey:@"pcon2"]; //sample name in abi file
+                    //NSLog(@"%@",[abifFile valueForKeyPath:@"tags.PCON2"]);
                 }//end if
                 //copy the file to the new directory
                 [[NSFileManager defaultManager] copyItemAtURL:originalFileURL toURL:targetFileURL error:nil];
@@ -418,6 +423,8 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
                     [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.PBAS1"] forKey:@"pbas1"]; //sequence
                     [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.SMPL1"] forKey:@"smpl1"]; //sample name in abi file
                     [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.RUND1"] forKey:@"rund1"]; //sample name in abi file
+                    [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.PCON2"] forKey:@"pcon2"]; //sample name in abi file
+
                 }//end if ...
                 //copy the file to the new directory
                 [[NSFileManager defaultManager] copyItemAtURL:originalFileURL toURL:targetFileURL error:nil];
@@ -489,6 +496,21 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
     }//end if
     
 }//end toggleUILayout
+
+- (IBAction)toggleReverseComplement:(id)sender {
+    NSSegmentedControl *segmentedControl = (NSSegmentedControl *) sender;
+    NSInteger selectedSegment = segmentedControl.selectedSegment;
+    //NSLog(@"%@",[_sequenceView exposedBindings]);
+    NSLog(@"%@", _sequenceView);
+    NSLog(@"%@", _notesView);
+    if (selectedSegment == 0) {
+        //[_sequenceView unbind:@"Value"];
+        [_sequenceView bind:@"attributedString" toObject: _sequenceFileArrayController withKeyPath:@"selection.coloredPbas1" options:nil];
+    }
+    if (selectedSegment == 1) {
+        [_sequenceView bind:@"attributedString" toObject: _sequenceFileArrayController withKeyPath:@"selection.coloredReverseComplementPbas1" options:nil];
+    }
+}
 -(void)collapseLeftView
 {
     CGFloat dividerThickness = [[self mySplitView] dividerThickness];
