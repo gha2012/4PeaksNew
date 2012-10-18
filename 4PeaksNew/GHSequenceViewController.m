@@ -18,10 +18,11 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        NSLog(@"%@",self.view);
+        //if I dont do this, the graphView is not shown.
+        [[self view] displayIfNeeded];
+        //NSLog(@"%@",self.view);
         //self.graphView=[[GHGraphView alloc]initWithFrame:[self.view frame] andData:data];;
         //NSLog(@"%@",self.graphView);
-        
     }
     
     return self;

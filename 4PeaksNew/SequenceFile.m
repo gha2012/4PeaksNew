@@ -89,14 +89,14 @@
 }
 
 -(NSMutableAttributedString *)coloredReverseComplementPbas1 {
-    NSLog(@"%@",[self valueForKey:@"pcon2"]);
-    NSLog(@"%@",[self valueForKey:@"pbas1"]);
+    //NSLog(@"%@",[self valueForKey:@"pcon2"]);
+    //NSLog(@"%@",[self valueForKey:@"pbas1"]);
     NSString *original = [[NSString alloc]init];
     NSString *colorValues = [[NSString alloc]init];
     original = [self reverseComplement];
     colorValues = [NSString stringWithString:[self valueForKey:@"pcon2"]];
     NSMutableAttributedString *coloredReverseComplementPbas1 = [[NSMutableAttributedString alloc] initWithString:original];
-    NSLog(@"%@",coloredReverseComplementPbas1);
+    //NSLog(@"%@",coloredReverseComplementPbas1);
     int qualVal = 0 ;
     for (int i = 0; i < [original length]; i++ ) {
         qualVal = [colorValues characterAtIndex:([original length]-1)-i];
@@ -114,14 +114,14 @@
 }
 
 -(NSMutableAttributedString *)coloredPbas1 {
-    NSLog(@"%@",[self valueForKey:@"pcon2"]);
-    NSLog(@"%@",[self valueForKey:@"pbas1"]);
+    //NSLog(@"%@",[self valueForKey:@"pcon2"]);
+    //NSLog(@"%@",[self valueForKey:@"pbas1"]);
     NSString *original = [[NSString alloc]init];
     NSString *colorValues = [[NSString alloc]init];
     original = [NSString stringWithString:[self valueForKey:@"pbas1"]];
     colorValues = [NSString stringWithString:[self valueForKey:@"pcon2"]];
     NSMutableAttributedString *coloredPbas1 = [[NSMutableAttributedString alloc] initWithString:original];
-    NSLog(@"%@",coloredPbas1);
+    //NSLog(@"%@",coloredPbas1);
     int qualVal = 0 ;
     for (int i = 0; i < [original length]; i++ ) {
         qualVal = [colorValues characterAtIndex:i];

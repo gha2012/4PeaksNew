@@ -6,13 +6,26 @@
 //  Copyright (c) 2012 Gregor Hagelueken. All rights reserved.
 //
 
-#import "ghaAppDelegate.h"
+#import "GHAppDelegate.h"
 #import "WatchBox.h"
 #import "SequenceFile.h"
-#import "ghaAbifFile.h"
+#import "GHAbifFile.h"
 #import "BCSequenceView.h"
+#import "GHRawDataViewControllerWindowController.h"
+#import "GHRawDataPopoverViewController.h"
 
-@implementation ghaAppDelegate
+#define LEFT_VIEW_INDEX 0
+#define LEFT_VIEW_PRIORITY 2
+#define LEFT_VIEW_MINIMUM_WIDTH 100.0
+#define MAIN_VIEW_INDEX 1
+#define MAIN_VIEW_PRIORITY 0
+#define MAIN_VIEW_MINIMUM_WIDTH 200.0
+#define RIGHT_VIEW_INDEX 2
+#define RIGHT_VIEW_PRIORITY 1
+#define RIGHT_VIEW_MINIMUM_WIDTH 50.0
+
+
+@implementation GHAppDelegate
 
 @synthesize watchBoxesTableView = _watchBoxesTableView;
 @synthesize watchBoxesArrayController = _watchBoxesArrayController;
@@ -26,6 +39,8 @@
 @synthesize notesView = _notesView;
 @synthesize mySplitView = _mySplitView;
 @synthesize sequenceFilesTableView = _sequenceFilesTableView;
+@synthesize searchField = _searchField;
+
 
 
 - (NSArray *)watchBoxSortDescriptors {
@@ -42,10 +57,19 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    //code here
+    
+	
+	[_mySplitView setDelegate:self];
+	[[[_mySplitView subviews] objectAtIndex:LEFT_VIEW_INDEX]
+     setBackgroundColor:[NSColor redColor]];
+	[[[_mySplitView subviews] objectAtIndex:MAIN_VIEW_INDEX]
+     setBackgroundColor:[NSColor darkGrayColor]];
+	[[[_mySplitView subviews] objectAtIndex:RIGHT_VIEW_INDEX]
+     setBackgroundColor:[NSColor blueColor]];
 }
 
 - (void)awakeFromNib {
+    reverseCompelement=FALSE;
     //register for dropable files
     [_watchBoxesTableView registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
     [_sequenceFilesTableView registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, nil]];
@@ -206,7 +230,7 @@
 - (IBAction)readAbi:(id)sender {
     NSURL *sequenceFileURL=[NSURL fileURLWithPath:[[_sequenceFileArrayController selection] valueForKey:@"sequenceFilePath"]];
     if ([[sequenceFileURL path]length]>0) {
-        ghaAbifFile *abifFile=[[ghaAbifFile alloc ] initWithAbifFileAtURL:sequenceFileURL];
+        GHAbifFile *abifFile=[[GHAbifFile alloc ] initWithAbifFileAtURL:sequenceFileURL];
         _selectedAbifFile=abifFile;
         NSLog(@"%@",[_selectedAbifFile valueForKeyPath:@"seq"]);
         NSLog(@"%@",[_selectedAbifFile valueForKeyPath:@"tags.PCON2"]);
@@ -216,6 +240,80 @@
     else
         NSLog(@"no file to read");
     
+}
+
+- (IBAction)toggleReverseComplement:(id)sender {
+    NSSegmentedControl *segmentedControl = (NSSegmentedControl *) sender;
+    NSInteger selectedSegment = segmentedControl.selectedSegment;
+    //NSLog(@"%@",[_sequenceView exposedBindings]);
+    NSLog(@"%@", _sequenceView);
+    NSLog(@"%@", _notesView);
+    if (selectedSegment == 0) {
+        //[_sequenceView unbind:@"Value"];
+        [_sequenceView bind:@"attributedString" toObject: _sequenceFileArrayController withKeyPath:@"selection.coloredPbas1" options:nil];
+        reverseCompelement=FALSE;
+    }
+    if (selectedSegment == 1) {
+        [_sequenceView bind:@"attributedString" toObject: _sequenceFileArrayController withKeyPath:@"selection.coloredReverseComplementPbas1" options:nil];
+        reverseCompelement=TRUE;
+    }
+}
+
+- (IBAction)showRawDataViewer:(id)sender {
+    NSRect rect=[_sequenceView firstRectForCharacterRange:[_sequenceView selectedRange]];
+    NSRect textViewBounds = [_sequenceView convertRectToBase:[_sequenceView bounds]];
+    textViewBounds.origin = [[_sequenceView window] convertBaseToScreen:textViewBounds.origin];
+    
+    rect.origin.x -= textViewBounds.origin.x;
+    rect.origin.y -= textViewBounds.origin.y;
+    rect.origin.y = textViewBounds.size.height - rect.origin.y - 10;
+    NSLog(@"rect %@",NSStringFromRect(rect));
+    NSLog(@"bounds %@",NSStringFromRect([_sequenceView bounds]));
+    //rawDataPopover = [[NSPopover alloc] init];
+    //rawDataPopover.contentViewController = _rawDataPopoverViewController;
+    //[rawDataPopover showRelativeToRect:rect ofView:_sequenceView preferredEdge:NSMaxYEdge];
+    
+    NSURL *sequenceFileURL=[NSURL fileURLWithPath:[[_sequenceFileArrayController selection] valueForKey:@"sequenceFilePath"]];
+    if ([[sequenceFileURL path]length]>0) {
+        NSLog(@"%@",sequenceFileURL);
+        GHAbifFile *abifFile=[[GHAbifFile alloc ] initWithAbifFileAtURL:sequenceFileURL];
+        NSRange selected=[_sequenceView selectedRange];
+        if (reverseCompelement==FALSE) {
+            NSUInteger graphBegin = [[[abifFile valueForKeyPath:@"tags.PLOC2"] objectAtIndex:selected.location]integerValue];
+            NSUInteger graphEnd = [[[abifFile valueForKeyPath:@"tags.PLOC2"] objectAtIndex:selected.location + selected.length]integerValue];
+            NSRange graphRange=NSMakeRange(graphBegin, graphEnd-graphBegin);
+            rawDataViewWindowController=[[GHRawDataViewControllerWindowController alloc] initWithAbifFile:abifFile andGraphRange:graphRange isReverseComplement: reverseCompelement];
+            [rawDataViewWindowController showWindow:nil];
+            rawDataPopoverViewController=[[GHRawDataPopoverViewController alloc]initWithNibName:@"GHRawDataPopoverViewController" abifFile:abifFile andGraphRange:graphRange isReverseComplement:reverseCompelement];
+            [rawDataPopoverViewController.rawDataPopover showRelativeToRect:rect ofView:_sequenceView preferredEdge:NSMaxYEdge];
+        } //endif
+        
+        
+        else if (reverseCompelement==TRUE) {
+            NSUInteger lengthOfSequence = [[_sequenceView string]length];
+            NSUInteger graphBegin = [[[abifFile valueForKeyPath:@"tags.PLOC2"] objectAtIndex:lengthOfSequence-selected.location-selected.length]integerValue];
+            NSUInteger graphEnd = [[[abifFile valueForKeyPath:@"tags.PLOC2"] objectAtIndex:lengthOfSequence-selected.location]integerValue];
+            NSRange graphRange=NSMakeRange(graphBegin, graphEnd-graphBegin);
+            //rawDataViewWindowController=[[GHRawDataViewControllerWindowController alloc] initWithAbifFile:abifFile andGraphRange:graphRange isReverseComplement: reverseCompelement];
+            //[rawDataViewWindowController showWindow:nil];
+            rawDataPopoverViewController=[[GHRawDataPopoverViewController alloc]initWithNibName:@"GHRawDataPopoverViewController" abifFile:abifFile andGraphRange:graphRange isReverseComplement:reverseCompelement];
+            [rawDataPopoverViewController.rawDataPopover showRelativeToRect:rect ofView:_sequenceView preferredEdge:NSMaxYEdge];
+        }// endif
+    }// end if
+    
+}
+
+- (IBAction)updateFilter:(id)sender {
+    NSString *searchString = [[_searchField stringValue] uppercaseString];
+    NSString *displayedSequence = [_sequenceView string];
+    NSRange range = [displayedSequence rangeOfString:searchString];
+    [_sequenceView showFindIndicatorForRange:range];
+    [_sequenceView setSelectedRange:range];
+}
+
+- (IBAction)showPopover:(id)sender {
+    rawDataPopoverViewController=[[GHRawDataPopoverViewController alloc]initWithNibName:@"GHRawDataPopoverViewController" bundle:nil];
+    [rawDataPopoverViewController.rawDataPopover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
@@ -384,7 +482,7 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
                 //parse some metadata
                 NSLog(@"%@",[[originalFilePath lastPathComponent] pathExtension]);
                 if ([[[originalFilePath lastPathComponent] pathExtension] isEqualTo:@"ab1"]) {
-                    ghaAbifFile *abifFile=[[ghaAbifFile alloc ] initWithAbifFileAtURL:originalFileURL];
+                    GHAbifFile *abifFile=[[GHAbifFile alloc ] initWithAbifFileAtURL:originalFileURL];
                     [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.PBAS1"] forKey:@"pbas1"]; //sequence
                     [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.SMPL1"] forKey:@"smpl1"]; //sample name in abi file
                     [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.RUND1"] forKey:@"rund1"]; //sample name in abi file
@@ -419,7 +517,7 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
                 //parse some metadata
                 NSLog(@"%@",[[originalFilePath lastPathComponent] pathExtension]);
                 if ([[[originalFilePath lastPathComponent] pathExtension] isEqualTo:@"ab1"]) {
-                    ghaAbifFile *abifFile=[[ghaAbifFile alloc ] initWithAbifFileAtURL:originalFileURL];
+                    GHAbifFile *abifFile=[[GHAbifFile alloc ] initWithAbifFileAtURL:originalFileURL];
                     [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.PBAS1"] forKey:@"pbas1"]; //sequence
                     [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.SMPL1"] forKey:@"smpl1"]; //sample name in abi file
                     [newSequenceFile setValue: [abifFile valueForKeyPath:@"tags.RUND1"] forKey:@"rund1"]; //sample name in abi file
@@ -438,6 +536,8 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 //- (void)tableViewSelectionDidChange:(NSNotification *)aNotification{
 //    [self readAbi:nil];
 //}
+
+
 
 #pragma mark - splitview delegate
 - (BOOL)splitView:(NSSplitView *)splitView canCollapseSubview:(NSView *)subview;
@@ -497,20 +597,6 @@ forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
     
 }//end toggleUILayout
 
-- (IBAction)toggleReverseComplement:(id)sender {
-    NSSegmentedControl *segmentedControl = (NSSegmentedControl *) sender;
-    NSInteger selectedSegment = segmentedControl.selectedSegment;
-    //NSLog(@"%@",[_sequenceView exposedBindings]);
-    NSLog(@"%@", _sequenceView);
-    NSLog(@"%@", _notesView);
-    if (selectedSegment == 0) {
-        //[_sequenceView unbind:@"Value"];
-        [_sequenceView bind:@"attributedString" toObject: _sequenceFileArrayController withKeyPath:@"selection.coloredPbas1" options:nil];
-    }
-    if (selectedSegment == 1) {
-        [_sequenceView bind:@"attributedString" toObject: _sequenceFileArrayController withKeyPath:@"selection.coloredReverseComplementPbas1" options:nil];
-    }
-}
 -(void)collapseLeftView
 {
     CGFloat dividerThickness = [[self mySplitView] dividerThickness];

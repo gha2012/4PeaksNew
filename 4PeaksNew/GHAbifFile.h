@@ -19,13 +19,17 @@ typedef struct {
     SInt32 dataHandle;      //reserved
 } DirEntry;
 
-@interface ghaAbifFile : NSObject
+@interface GHAbifFile : NSObject
 @property NSData *abifFile;
 @property NSMutableDictionary *data;
 @property NSMutableDictionary *tags;
 @property NSString *fileId;
 @property NSString *name;
 @property (retain) NSString *seq;
+@property (retain) NSMutableArray *DATA09pointsForPlot;
+@property (retain) NSMutableArray *DATA10pointsForPlot;
+@property (retain) NSMutableArray *DATA11pointsForPlot;
+@property (retain) NSMutableArray *DATA12pointsForPlot;
 
 -(id) initWithAbifFileAtURL: (NSURL *) anAbifFileURL;
 -(NSDictionary *)parseDirectoryFromAbifFile: (NSData *) anAbifFile atPosition:(int) position withLength:(int) length;

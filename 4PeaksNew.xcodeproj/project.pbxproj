@@ -7,25 +7,59 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E60B5B3F161227CA00143197 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E60B5B381612274A00143197 /* CorePlot.framework */; };
+		E60B5B40161227E400143197 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E60B5B381612274A00143197 /* CorePlot.framework */; };
+		E60B5B42161227FD00143197 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E60B5B41161227FD00143197 /* QuartzCore.framework */; };
+		E60B5B4816122E7F00143197 /* GHRawDataViewControllerWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E60B5B4616122E7F00143197 /* GHRawDataViewControllerWindowController.m */; };
+		E60B5B4916122E7F00143197 /* GHRawDataViewControllerWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E60B5B4716122E7F00143197 /* GHRawDataViewControllerWindowController.xib */; };
 		E61CB74815EB9F9E001FFA99 /* BCSequenceView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61CB74715EB9F9E001FFA99 /* BCSequenceView.m */; };
 		E61CB74915EB9F9E001FFA99 /* BCSequenceView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61CB74715EB9F9E001FFA99 /* BCSequenceView.m */; };
 		E650F8CB15D7FA4D00AF521C /* WatchBox.m in Sources */ = {isa = PBXBuildFile; fileRef = E650F8CA15D7FA4D00AF521C /* WatchBox.m */; };
 		E650F8CF15D7FA6700AF521C /* SequenceFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E650F8CE15D7FA6700AF521C /* SequenceFile.m */; };
+		E65BA667162C8BF2002E8191 /* GHSequenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B5F7CE162C863900368E54 /* GHSequenceViewController.xib */; };
+		E65BA668162C8C19002E8191 /* GHGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B5F7CD162C863900368E54 /* GHGraphView.m */; };
+		E65BA669162C8C24002E8191 /* GHSequenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B5F7CB162C863900368E54 /* GHSequenceViewController.m */; };
+		E6B5F6D916235B8800368E54 /* GHRawDataPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B5F6D716235B8800368E54 /* GHRawDataPopoverViewController.m */; };
+		E6B5F6DA16235B8800368E54 /* GHRawDataPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B5F6D816235B8800368E54 /* GHRawDataPopoverViewController.xib */; };
+		E6B5F7CF162C863900368E54 /* GHSequenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B5F7CB162C863900368E54 /* GHSequenceViewController.m */; };
+		E6B5F7D0162C863900368E54 /* GHGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B5F7CD162C863900368E54 /* GHGraphView.m */; };
+		E6B5F7D1162C863900368E54 /* GHSequenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B5F7CE162C863900368E54 /* GHSequenceViewController.xib */; };
 		E6CB784C15D6973600B179D7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB784B15D6973600B179D7 /* Cocoa.framework */; };
 		E6CB785615D6973600B179D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E6CB785415D6973600B179D7 /* InfoPlist.strings */; };
 		E6CB785815D6973600B179D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB785715D6973600B179D7 /* main.m */; };
 		E6CB785C15D6973600B179D7 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E6CB785A15D6973600B179D7 /* Credits.rtf */; };
-		E6CB785F15D6973600B179D7 /* ghaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB785E15D6973600B179D7 /* ghaAppDelegate.m */; };
+		E6CB785F15D6973600B179D7 /* GHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB785E15D6973600B179D7 /* GHAppDelegate.m */; };
 		E6CB786215D6973600B179D7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6CB786015D6973600B179D7 /* MainMenu.xib */; };
 		E6CB786515D6973600B179D7 /* _PeaksNew.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E6CB786315D6973600B179D7 /* _PeaksNew.xcdatamodeld */; };
 		E6CB786D15D6973700B179D7 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB786C15D6973700B179D7 /* SenTestingKit.framework */; };
 		E6CB786E15D6973700B179D7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CB784B15D6973600B179D7 /* Cocoa.framework */; };
 		E6CB787615D6973700B179D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E6CB787415D6973700B179D7 /* InfoPlist.strings */; };
 		E6CB787915D6973700B179D7 /* _PeaksNewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E6CB787815D6973700B179D7 /* _PeaksNewTests.m */; };
-		E6D6050315DBE54D00B78DA0 /* ghaAbifFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D6050215DBE54D00B78DA0 /* ghaAbifFile.m */; };
+		E6D6050315DBE54D00B78DA0 /* GHAbifFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D6050215DBE54D00B78DA0 /* GHAbifFile.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E60B5B371612274A00143197 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E60B5B2E1612274A00143197 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = CorePlot;
+		};
+		E60B5B391612274A00143197 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E60B5B2E1612274A00143197 /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0730F600109492D800E95162;
+			remoteInfo = UnitTests;
+		};
+		E60B5B3C1612278D00143197 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E60B5B2E1612274A00143197 /* CorePlot.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = CorePlot;
+		};
 		E6CB786F15D6973700B179D7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E6CB783E15D6973600B179D7 /* Project object */;
@@ -35,7 +69,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		E60B5B3E161227A400143197 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E60B5B3F161227CA00143197 /* CorePlot.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		E60B5B2E1612274A00143197 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../CorePlot_1.0/Source/framework/CorePlot.xcodeproj; sourceTree = "<group>"; };
+		E60B5B41161227FD00143197 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E60B5B4516122E7F00143197 /* GHRawDataViewControllerWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHRawDataViewControllerWindowController.h; path = ../GHRawDataViewControllerWindowController.h; sourceTree = "<group>"; };
+		E60B5B4616122E7F00143197 /* GHRawDataViewControllerWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHRawDataViewControllerWindowController.m; path = ../GHRawDataViewControllerWindowController.m; sourceTree = "<group>"; };
+		E60B5B4716122E7F00143197 /* GHRawDataViewControllerWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GHRawDataViewControllerWindowController.xib; path = ../GHRawDataViewControllerWindowController.xib; sourceTree = "<group>"; };
 		E61CB74615EB9F9E001FFA99 /* BCSequenceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCSequenceView.h; sourceTree = "<group>"; };
 		E61CB74715EB9F9E001FFA99 /* BCSequenceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCSequenceView.m; sourceTree = "<group>"; };
 		E61CB74B15EB9FAC001FFA99 /* BCAppKitDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCAppKitDefines.h; sourceTree = "<group>"; };
@@ -43,6 +95,14 @@
 		E650F8CA15D7FA4D00AF521C /* WatchBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchBox.m; sourceTree = "<group>"; };
 		E650F8CD15D7FA6700AF521C /* SequenceFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequenceFile.h; sourceTree = "<group>"; };
 		E650F8CE15D7FA6700AF521C /* SequenceFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SequenceFile.m; sourceTree = "<group>"; };
+		E6B5F6D616235B8800368E54 /* GHRawDataPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRawDataPopoverViewController.h; sourceTree = "<group>"; };
+		E6B5F6D716235B8800368E54 /* GHRawDataPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRawDataPopoverViewController.m; sourceTree = "<group>"; };
+		E6B5F6D816235B8800368E54 /* GHRawDataPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GHRawDataPopoverViewController.xib; sourceTree = "<group>"; };
+		E6B5F7CA162C863900368E54 /* GHSequenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSequenceViewController.h; sourceTree = "<group>"; };
+		E6B5F7CB162C863900368E54 /* GHSequenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSequenceViewController.m; sourceTree = "<group>"; };
+		E6B5F7CC162C863900368E54 /* GHGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHGraphView.h; sourceTree = "<group>"; };
+		E6B5F7CD162C863900368E54 /* GHGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHGraphView.m; sourceTree = "<group>"; };
+		E6B5F7CE162C863900368E54 /* GHSequenceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GHSequenceViewController.xib; sourceTree = "<group>"; };
 		E6CB784715D6973600B179D7 /* 4PeaksNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 4PeaksNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6CB784B15D6973600B179D7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E6CB784E15D6973600B179D7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -53,8 +113,8 @@
 		E6CB785715D6973600B179D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E6CB785915D6973600B179D7 /* 4PeaksNew-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "4PeaksNew-Prefix.pch"; sourceTree = "<group>"; };
 		E6CB785B15D6973600B179D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		E6CB785D15D6973600B179D7 /* ghaAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ghaAppDelegate.h; sourceTree = "<group>"; };
-		E6CB785E15D6973600B179D7 /* ghaAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ghaAppDelegate.m; sourceTree = "<group>"; };
+		E6CB785D15D6973600B179D7 /* GHAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHAppDelegate.h; sourceTree = "<group>"; };
+		E6CB785E15D6973600B179D7 /* GHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHAppDelegate.m; sourceTree = "<group>"; };
 		E6CB786115D6973600B179D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E6CB786415D6973600B179D7 /* _PeaksNew.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = _PeaksNew.xcdatamodel; sourceTree = "<group>"; };
 		E6CB786B15D6973700B179D7 /* 4PeaksNewTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 4PeaksNewTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,8 +123,8 @@
 		E6CB787515D6973700B179D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E6CB787715D6973700B179D7 /* _PeaksNewTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _PeaksNewTests.h; sourceTree = "<group>"; };
 		E6CB787815D6973700B179D7 /* _PeaksNewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _PeaksNewTests.m; sourceTree = "<group>"; };
-		E6D6050115DBE54D00B78DA0 /* ghaAbifFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ghaAbifFile.h; sourceTree = "<group>"; };
-		E6D6050215DBE54D00B78DA0 /* ghaAbifFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ghaAbifFile.m; sourceTree = "<group>"; };
+		E6D6050115DBE54D00B78DA0 /* GHAbifFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAbifFile.h; sourceTree = "<group>"; };
+		E6D6050215DBE54D00B78DA0 /* GHAbifFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHAbifFile.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +132,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E60B5B42161227FD00143197 /* QuartzCore.framework in Frameworks */,
 				E6CB784C15D6973600B179D7 /* Cocoa.framework in Frameworks */,
+				E60B5B40161227E400143197 /* CorePlot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +150,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E60B5B2F1612274A00143197 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E60B5B381612274A00143197 /* CorePlot.framework */,
+				E60B5B3A1612274A00143197 /* UnitTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		E61CB6D315E783A5001FFA99 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +174,7 @@
 		E6CB783C15D6973600B179D7 = {
 			isa = PBXGroup;
 			children = (
+				E60B5B2E1612274A00143197 /* CorePlot.xcodeproj */,
 				E6CB785115D6973600B179D7 /* 4PeaksNew */,
 				E6CB787115D6973700B179D7 /* 4PeaksNewTests */,
 				E6CB784A15D6973600B179D7 /* Frameworks */,
@@ -122,6 +194,7 @@
 		E6CB784A15D6973600B179D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E60B5B41161227FD00143197 /* QuartzCore.framework */,
 				E6CB784B15D6973600B179D7 /* Cocoa.framework */,
 				E6CB786C15D6973700B179D7 /* SenTestingKit.framework */,
 				E6CB784D15D6973600B179D7 /* Other Frameworks */,
@@ -145,13 +218,24 @@
 				E61CB74B15EB9FAC001FFA99 /* BCAppKitDefines.h */,
 				E61CB74615EB9F9E001FFA99 /* BCSequenceView.h */,
 				E61CB74715EB9F9E001FFA99 /* BCSequenceView.m */,
-				E6CB785D15D6973600B179D7 /* ghaAppDelegate.h */,
-				E6CB785E15D6973600B179D7 /* ghaAppDelegate.m */,
+				E6CB785D15D6973600B179D7 /* GHAppDelegate.h */,
+				E6CB785E15D6973600B179D7 /* GHAppDelegate.m */,
+				E6B5F6D616235B8800368E54 /* GHRawDataPopoverViewController.h */,
+				E6B5F6D716235B8800368E54 /* GHRawDataPopoverViewController.m */,
+				E6B5F6D816235B8800368E54 /* GHRawDataPopoverViewController.xib */,
 				E6CB786015D6973600B179D7 /* MainMenu.xib */,
+				E60B5B4516122E7F00143197 /* GHRawDataViewControllerWindowController.h */,
+				E60B5B4616122E7F00143197 /* GHRawDataViewControllerWindowController.m */,
+				E60B5B4716122E7F00143197 /* GHRawDataViewControllerWindowController.xib */,
+				E6B5F7CA162C863900368E54 /* GHSequenceViewController.h */,
+				E6B5F7CB162C863900368E54 /* GHSequenceViewController.m */,
+				E6B5F7CC162C863900368E54 /* GHGraphView.h */,
+				E6B5F7CD162C863900368E54 /* GHGraphView.m */,
+				E6B5F7CE162C863900368E54 /* GHSequenceViewController.xib */,
 				E61CB6D315E783A5001FFA99 /* model */,
 				E6CB785215D6973600B179D7 /* Supporting Files */,
-				E6D6050115DBE54D00B78DA0 /* ghaAbifFile.h */,
-				E6D6050215DBE54D00B78DA0 /* ghaAbifFile.m */,
+				E6D6050115DBE54D00B78DA0 /* GHAbifFile.h */,
+				E6D6050215DBE54D00B78DA0 /* GHAbifFile.m */,
 			);
 			path = 4PeaksNew;
 			sourceTree = "<group>";
@@ -197,10 +281,12 @@
 				E6CB784315D6973600B179D7 /* Sources */,
 				E6CB784415D6973600B179D7 /* Frameworks */,
 				E6CB784515D6973600B179D7 /* Resources */,
+				E60B5B3E161227A400143197 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E60B5B3D1612278D00143197 /* PBXTargetDependency */,
 			);
 			name = 4PeaksNew;
 			productName = 4PeaksNew;
@@ -246,6 +332,12 @@
 			mainGroup = E6CB783C15D6973600B179D7;
 			productRefGroup = E6CB784815D6973600B179D7 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E60B5B2F1612274A00143197 /* Products */;
+					ProjectRef = E60B5B2E1612274A00143197 /* CorePlot.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				E6CB784615D6973600B179D7 /* 4PeaksNew */,
@@ -253,6 +345,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E60B5B381612274A00143197 /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = E60B5B371612274A00143197 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E60B5B3A1612274A00143197 /* UnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTests.octest;
+			remoteRef = E60B5B391612274A00143197 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E6CB784515D6973600B179D7 /* Resources */ = {
@@ -262,6 +371,9 @@
 				E6CB785615D6973600B179D7 /* InfoPlist.strings in Resources */,
 				E6CB785C15D6973600B179D7 /* Credits.rtf in Resources */,
 				E6CB786215D6973600B179D7 /* MainMenu.xib in Resources */,
+				E60B5B4916122E7F00143197 /* GHRawDataViewControllerWindowController.xib in Resources */,
+				E6B5F6DA16235B8800368E54 /* GHRawDataPopoverViewController.xib in Resources */,
+				E65BA667162C8BF2002E8191 /* GHSequenceViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +382,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6CB787615D6973700B179D7 /* InfoPlist.strings in Resources */,
+				E6B5F7D1162C863900368E54 /* GHSequenceViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,12 +410,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6CB785815D6973600B179D7 /* main.m in Sources */,
-				E6CB785F15D6973600B179D7 /* ghaAppDelegate.m in Sources */,
+				E6CB785F15D6973600B179D7 /* GHAppDelegate.m in Sources */,
 				E6CB786515D6973600B179D7 /* _PeaksNew.xcdatamodeld in Sources */,
 				E650F8CB15D7FA4D00AF521C /* WatchBox.m in Sources */,
 				E650F8CF15D7FA6700AF521C /* SequenceFile.m in Sources */,
-				E6D6050315DBE54D00B78DA0 /* ghaAbifFile.m in Sources */,
+				E6D6050315DBE54D00B78DA0 /* GHAbifFile.m in Sources */,
 				E61CB74815EB9F9E001FFA99 /* BCSequenceView.m in Sources */,
+				E60B5B4816122E7F00143197 /* GHRawDataViewControllerWindowController.m in Sources */,
+				E6B5F6D916235B8800368E54 /* GHRawDataPopoverViewController.m in Sources */,
+				E65BA669162C8C24002E8191 /* GHSequenceViewController.m in Sources */,
+				E65BA668162C8C19002E8191 /* GHGraphView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,12 +429,19 @@
 			files = (
 				E6CB787915D6973700B179D7 /* _PeaksNewTests.m in Sources */,
 				E61CB74915EB9F9E001FFA99 /* BCSequenceView.m in Sources */,
+				E6B5F7CF162C863900368E54 /* GHSequenceViewController.m in Sources */,
+				E6B5F7D0162C863900368E54 /* GHGraphView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		E60B5B3D1612278D00143197 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CorePlot;
+			targetProxy = E60B5B3C1612278D00143197 /* PBXContainerItemProxy */;
+		};
 		E6CB787015D6973700B179D7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E6CB784615D6973600B179D7 /* 4PeaksNew */;

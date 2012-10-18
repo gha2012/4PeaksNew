@@ -6,14 +6,21 @@
 //  Copyright (c) 2012 Gregor Hagelueken. All rights reserved.
 //
 
-#import "ghaAbifFile.h"
+#import "GHAbifFile.h"
+#define X_VAL @"X_VAL"
+#define Y_VAL @"Y_VAL"
 
-@implementation ghaAbifFile
+@implementation GHAbifFile
 @synthesize seq = _seq;
+@synthesize DATA09pointsForPlot=_DATA09pointsForPlot;
 -(id) initWithAbifFileAtURL: (NSURL *)anAbifFileURL {
     if ((self=[super init])) {
         _data=[[NSMutableDictionary alloc]init];
         _tags=[[NSMutableDictionary alloc]init];
+        _DATA09pointsForPlot=[[NSMutableArray alloc]init];
+        _DATA10pointsForPlot=[[NSMutableArray alloc]init];
+        _DATA11pointsForPlot=[[NSMutableArray alloc]init];
+        _DATA12pointsForPlot=[[NSMutableArray alloc]init];
         self.abifFile = [NSData dataWithContentsOfURL: anAbifFileURL];
         //test if abif format - first 4 bytes should be ABIF
         unsigned char charStr[4];
@@ -128,8 +135,8 @@
                 [anAbifFile getBytes:&buffer range:NSMakeRange(offset, numElements)];
                 NSString *bufferString=[[NSString alloc]initWithBytes:&buffer length:numElements encoding:NSASCIIStringEncoding];
                 dictionary=[NSDictionary dictionaryWithObjectsAndKeys:bufferString, nameAndNumber,nil];
-                NSLog(@"%@",dictionary);
-                NSLog(@"%li",[bufferString length]);
+                //NSLog(@"%@",dictionary);
+                //NSLog(@"%li",[bufferString length]);
                 //int result=0;
                 //for (int i=0; i<[bufferString length]-1; i++) {
                 //    result=[bufferString characterAtIndex:i];
@@ -163,11 +170,42 @@
                 int i=0;
                 while (i <= numElements-1) {
                     [array addObject:[NSNumber numberWithInt: EndianS16_BtoN(buffer[i])]];
+                    if ([nameAndNumber isEqualTo:@"DATA9"]) {
+                        NSDictionary *newPoint = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                  [NSNumber numberWithFloat:(float) i], X_VAL,
+                                                  [NSNumber numberWithFloat:(float) EndianS16_BtoN(buffer[i])], Y_VAL,
+                                                  nil];
+                        //NSLog(@"%@",newPoint);
+                        [_DATA09pointsForPlot addObject:newPoint];
+                    }//end if
+                    if ([nameAndNumber isEqualTo:@"DATA10"]) {
+                        NSDictionary *newPoint = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                  [NSNumber numberWithFloat:(float) i], X_VAL,
+                                                  [NSNumber numberWithFloat:(float) EndianS16_BtoN(buffer[i])], Y_VAL,
+                                                  nil];
+                        //NSLog(@"%@",newPoint);
+                        [_DATA10pointsForPlot addObject:newPoint];
+                    }//end if
+                    if ([nameAndNumber isEqualTo:@"DATA11"]) {
+                        NSDictionary *newPoint = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                  [NSNumber numberWithFloat:(float) i], X_VAL,
+                                                  [NSNumber numberWithFloat:(float) EndianS16_BtoN(buffer[i])], Y_VAL,
+                                                  nil];
+                        //NSLog(@"%@",newPoint);
+                        [_DATA11pointsForPlot addObject:newPoint];
+                    }//end if
+                    if ([nameAndNumber isEqualTo:@"DATA12"]) {
+                        NSDictionary *newPoint = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                  [NSNumber numberWithFloat:(float) i], X_VAL,
+                                                  [NSNumber numberWithFloat:(float) EndianS16_BtoN(buffer[i])], Y_VAL,
+                                                  nil];
+                        //NSLog(@"%@",newPoint);
+                        [_DATA12pointsForPlot addObject:newPoint];
+                    }//end if
                     i++;
-                }
+                }//end while
                 dictionary=[NSDictionary dictionaryWithObjectsAndKeys:array, nameAndNumber,nil];
-                //if ([nameAndNumber isEqualTo:@"DATA10"])
-                    //NSLog(@"%@",array);
+                //NSLog(@"%@",_DATA09pointsForPlot);
             }// end if
         }
             break; //end case 4

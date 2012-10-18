@@ -7,10 +7,19 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class ghaAbifFile;
+@class GHAbifFile;
 @class BCSequenceView;
 @class GHTextView;
-@interface ghaAppDelegate : NSObject <NSApplicationDelegate>
+@class GHRawDataViewControllerWindowController;
+@class GHRawDataPopoverViewController;
+@class GHSplitViewDelegate;
+@interface GHAppDelegate : NSObject <NSApplicationDelegate> {
+    BOOL reverseCompelement;
+     GHSplitViewDelegate *splitViewDelegate;
+@private
+    GHRawDataViewControllerWindowController *rawDataViewWindowController;
+    GHRawDataPopoverViewController *rawDataPopoverViewController;
+}
 
 
 
@@ -19,12 +28,14 @@
 @property (weak) IBOutlet NSArrayController *watchBoxesArrayController;
 @property (weak) IBOutlet NSArrayController *sequenceFileArrayController;
 @property (weak) IBOutlet NSDictionaryController *tagsDictionaryController;
-@property ghaAbifFile *selectedAbifFile;
+@property GHAbifFile *selectedAbifFile;
 @property (unsafe_unretained) IBOutlet NSTextView *sequenceView;
 @property (unsafe_unretained) IBOutlet NSTextView *notesView;
 
 @property (weak) IBOutlet NSSplitView *mySplitView;
 @property (weak) IBOutlet NSTableView *sequenceFilesTableView;
+@property (weak) IBOutlet NSSearchField *searchField;
+
 
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -37,6 +48,9 @@
 - (IBAction)toggleWatchBoxes:(id)sender;
 - (IBAction)toggleUILayout:(id)sender;
 - (IBAction)toggleReverseComplement:(id)sender;
+- (IBAction)showRawDataViewer:(id)sender;
+- (IBAction)updateFilter:(id)sender;
+- (IBAction)showPopover:(id)sender;
 
 -(void)collapseLeftView;
 -(void)uncollapseLeftView;

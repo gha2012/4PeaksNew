@@ -7,7 +7,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <CorePlot/CorePlot.h>
 
-@interface GHRawDataPopoverViewController : NSViewController
+@class GHAbifFile;
 
+@interface GHRawDataPopoverViewController : NSViewController <CPTPlotDataSource> {
+    double maxY;
+    BOOL reverseComplement;
+}
+@property (strong) IBOutlet NSPopover *rawDataPopover;
+@property (strong) GHAbifFile *abifFile;
+@property NSRange graphRange;
+@property (weak) IBOutlet CPTGraphHostingView *hostingView;
+- (IBAction)plotGraphs:(id)sender;
+- (id)initWithNibName:(NSString *)nibName abifFile: (GHAbifFile *) anAbifFile andGraphRange: (NSRange) graphRange isReverseComplement: (BOOL) aBoolValue;
 @end
