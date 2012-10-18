@@ -11,7 +11,7 @@
 @class GHScatterPlot;
 @class GHAbifFile;
 
-@interface GHRawDataViewControllerWindowController : NSWindowController {
+@interface GHRawDataViewWindowController : NSWindowController {
     NSRect firstBaseRect;
     int baseCount;
     int rowCount;

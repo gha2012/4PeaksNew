@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Gregor Hagelueken. All rights reserved.
 //
 
-#import "GHRawDataViewControllerWindowController.h"
+#import "GHRawDataViewWindowController.h"
 #import "GHSequenceViewController.h"
 #import "GHAbifFile.h"
 #import "GHGraphView.h"
@@ -18,21 +18,21 @@
 #define C_PLOT @"C_PLOT"
 #define T_PLOT @"T_PLOT"
 
-@interface GHRawDataViewControllerWindowController ()
+@interface GHRawDataViewWindowController ()
 
 @end
 
-@implementation GHRawDataViewControllerWindowController
+@implementation GHRawDataViewWindowController
 @synthesize baseViewControllerArray = _baseViewControllerArray;
 @synthesize abifFile = _abifFile, graphRange = _graphRange;
 - (id)init
 {
-    self = [super initWithWindowNibName:@"GHRawDataViewControllerWindowController"];
+    self = [super initWithWindowNibName:@"GHRawDataViewWindowController"];
     return self;
 }
 
 - (id)initWithAbifFile: (GHAbifFile *) anAbifFile andGraphRange:(NSRange)graphRange isReverseComplement:(BOOL)aBoolValue {
-    self = [super initWithWindowNibName:@"GHRawDataViewControllerWindowController"];
+    self = [super initWithWindowNibName:@"GHRawDataViewWindowController"];
     _abifFile=[[GHAbifFile alloc] init];
     _abifFile=anAbifFile;
     _graphRange=NSMakeRange(graphRange.location, graphRange.length);

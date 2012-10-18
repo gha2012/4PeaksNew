@@ -10,14 +10,14 @@
 @class GHAbifFile;
 @class BCSequenceView;
 @class GHTextView;
-@class GHRawDataViewControllerWindowController;
+@class GHRawDataViewWindowController;
 @class GHRawDataPopoverViewController;
 @class GHSplitViewDelegate;
 @interface GHAppDelegate : NSObject <NSApplicationDelegate> {
     BOOL reverseCompelement;
      GHSplitViewDelegate *splitViewDelegate;
 @private
-    GHRawDataViewControllerWindowController *rawDataViewWindowController;
+    GHRawDataViewWindowController *rawDataViewWindowController;
     GHRawDataPopoverViewController *rawDataPopoverViewController;
 }
 

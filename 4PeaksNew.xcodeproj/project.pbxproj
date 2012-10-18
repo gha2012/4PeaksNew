@@ -10,8 +10,8 @@
 		E60B5B3F161227CA00143197 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E60B5B381612274A00143197 /* CorePlot.framework */; };
 		E60B5B40161227E400143197 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E60B5B381612274A00143197 /* CorePlot.framework */; };
 		E60B5B42161227FD00143197 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E60B5B41161227FD00143197 /* QuartzCore.framework */; };
-		E60B5B4816122E7F00143197 /* GHRawDataViewControllerWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E60B5B4616122E7F00143197 /* GHRawDataViewControllerWindowController.m */; };
-		E60B5B4916122E7F00143197 /* GHRawDataViewControllerWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E60B5B4716122E7F00143197 /* GHRawDataViewControllerWindowController.xib */; };
+		E60B5B4816122E7F00143197 /* GHRawDataViewWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E60B5B4616122E7F00143197 /* GHRawDataViewWindowController.m */; };
+		E60B5B4916122E7F00143197 /* GHRawDataViewWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E60B5B4716122E7F00143197 /* GHRawDataViewWindowController.xib */; };
 		E61CB74815EB9F9E001FFA99 /* BCSequenceView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61CB74715EB9F9E001FFA99 /* BCSequenceView.m */; };
 		E61CB74915EB9F9E001FFA99 /* BCSequenceView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61CB74715EB9F9E001FFA99 /* BCSequenceView.m */; };
 		E650F8CB15D7FA4D00AF521C /* WatchBox.m in Sources */ = {isa = PBXBuildFile; fileRef = E650F8CA15D7FA4D00AF521C /* WatchBox.m */; };
@@ -85,9 +85,9 @@
 /* Begin PBXFileReference section */
 		E60B5B2E1612274A00143197 /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = ../CorePlot_1.0/Source/framework/CorePlot.xcodeproj; sourceTree = "<group>"; };
 		E60B5B41161227FD00143197 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		E60B5B4516122E7F00143197 /* GHRawDataViewControllerWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHRawDataViewControllerWindowController.h; path = ../GHRawDataViewControllerWindowController.h; sourceTree = "<group>"; };
-		E60B5B4616122E7F00143197 /* GHRawDataViewControllerWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHRawDataViewControllerWindowController.m; path = ../GHRawDataViewControllerWindowController.m; sourceTree = "<group>"; };
-		E60B5B4716122E7F00143197 /* GHRawDataViewControllerWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GHRawDataViewControllerWindowController.xib; path = ../GHRawDataViewControllerWindowController.xib; sourceTree = "<group>"; };
+		E60B5B4516122E7F00143197 /* GHRawDataViewWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHRawDataViewWindowController.h; path = ../GHRawDataViewWindowController.h; sourceTree = "<group>"; };
+		E60B5B4616122E7F00143197 /* GHRawDataViewWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHRawDataViewWindowController.m; path = ../GHRawDataViewWindowController.m; sourceTree = "<group>"; };
+		E60B5B4716122E7F00143197 /* GHRawDataViewWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GHRawDataViewWindowController.xib; path = ../GHRawDataViewWindowController.xib; sourceTree = "<group>"; };
 		E61CB74615EB9F9E001FFA99 /* BCSequenceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCSequenceView.h; sourceTree = "<group>"; };
 		E61CB74715EB9F9E001FFA99 /* BCSequenceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCSequenceView.m; sourceTree = "<group>"; };
 		E61CB74B15EB9FAC001FFA99 /* BCAppKitDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCAppKitDefines.h; sourceTree = "<group>"; };
@@ -224,9 +224,9 @@
 				E6B5F6D716235B8800368E54 /* GHRawDataPopoverViewController.m */,
 				E6B5F6D816235B8800368E54 /* GHRawDataPopoverViewController.xib */,
 				E6CB786015D6973600B179D7 /* MainMenu.xib */,
-				E60B5B4516122E7F00143197 /* GHRawDataViewControllerWindowController.h */,
-				E60B5B4616122E7F00143197 /* GHRawDataViewControllerWindowController.m */,
-				E60B5B4716122E7F00143197 /* GHRawDataViewControllerWindowController.xib */,
+				E60B5B4516122E7F00143197 /* GHRawDataViewWindowController.h */,
+				E60B5B4616122E7F00143197 /* GHRawDataViewWindowController.m */,
+				E60B5B4716122E7F00143197 /* GHRawDataViewWindowController.xib */,
 				E6B5F7CA162C863900368E54 /* GHSequenceViewController.h */,
 				E6B5F7CB162C863900368E54 /* GHSequenceViewController.m */,
 				E6B5F7CC162C863900368E54 /* GHGraphView.h */,
@@ -371,7 +371,7 @@
 				E6CB785615D6973600B179D7 /* InfoPlist.strings in Resources */,
 				E6CB785C15D6973600B179D7 /* Credits.rtf in Resources */,
 				E6CB786215D6973600B179D7 /* MainMenu.xib in Resources */,
-				E60B5B4916122E7F00143197 /* GHRawDataViewControllerWindowController.xib in Resources */,
+				E60B5B4916122E7F00143197 /* GHRawDataViewWindowController.xib in Resources */,
 				E6B5F6DA16235B8800368E54 /* GHRawDataPopoverViewController.xib in Resources */,
 				E65BA667162C8BF2002E8191 /* GHSequenceViewController.xib in Resources */,
 			);
@@ -416,7 +416,7 @@
 				E650F8CF15D7FA6700AF521C /* SequenceFile.m in Sources */,
 				E6D6050315DBE54D00B78DA0 /* GHAbifFile.m in Sources */,
 				E61CB74815EB9F9E001FFA99 /* BCSequenceView.m in Sources */,
-				E60B5B4816122E7F00143197 /* GHRawDataViewControllerWindowController.m in Sources */,
+				E60B5B4816122E7F00143197 /* GHRawDataViewWindowController.m in Sources */,
 				E6B5F6D916235B8800368E54 /* GHRawDataPopoverViewController.m in Sources */,
 				E65BA669162C8C24002E8191 /* GHSequenceViewController.m in Sources */,
 				E65BA668162C8C19002E8191 /* GHGraphView.m in Sources */,

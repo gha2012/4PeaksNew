@@ -11,7 +11,7 @@
 #import "SequenceFile.h"
 #import "GHAbifFile.h"
 #import "BCSequenceView.h"
-#import "GHRawDataViewControllerWindowController.h"
+#import "GHRawDataViewWindowController.h"
 #import "GHRawDataPopoverViewController.h"
 
 #define LEFT_VIEW_INDEX 0
@@ -282,7 +282,7 @@
             NSUInteger graphBegin = [[[abifFile valueForKeyPath:@"tags.PLOC2"] objectAtIndex:selected.location]integerValue];
             NSUInteger graphEnd = [[[abifFile valueForKeyPath:@"tags.PLOC2"] objectAtIndex:selected.location + selected.length]integerValue];
             NSRange graphRange=NSMakeRange(graphBegin, graphEnd-graphBegin);
-            rawDataViewWindowController=[[GHRawDataViewControllerWindowController alloc] initWithAbifFile:abifFile andGraphRange:graphRange isReverseComplement: reverseCompelement];
+            rawDataViewWindowController=[[GHRawDataViewWindowController alloc] initWithAbifFile:abifFile andGraphRange:graphRange isReverseComplement: reverseCompelement];
             [rawDataViewWindowController showWindow:nil];
             rawDataPopoverViewController=[[GHRawDataPopoverViewController alloc]initWithNibName:@"GHRawDataPopoverViewController" abifFile:abifFile andGraphRange:graphRange isReverseComplement:reverseCompelement];
             [rawDataPopoverViewController.rawDataPopover showRelativeToRect:rect ofView:_sequenceView preferredEdge:NSMaxYEdge];
